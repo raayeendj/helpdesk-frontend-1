@@ -1,0 +1,75 @@
+<div class="page-container">
+  <!-- Header avec onglets -->
+  <div class="header">
+    <div class="tabs">
+      <button [class.active]="activeTab === 'agents'" (click)="switchTab('agents')">
+        Agents ({{ agents.length }})
+      </button>
+      <button [class.active]="activeTab === 'teams'" (click)="switchTab('teams')">
+        Teams ({{ teams.length }})
+      </button>
+    </div>
+    <div class="actions">
+      <input type="text" placeholder="Search..." />
+      <button (click)="addItem()">+ Add</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Liste -->
+    <div class="list">
+      <!-- Liste des agents -->
+      <ng-container *ngIf="activeTab === 'agents'">
+        <div
+          class="list-item"
+          *ngFor="let agent of agents"
+          (click)="selectAgent(agent)"
+          [class.selected]="selectedAgent?._id === agent._id"
+        >
+          <span class="avatar">👤</span>
+          <span class="name">{{ agent.name }}</span>
+          <span class="role" [class.admin]="agent.role === 'Admin'">{{ agent.role }}</span>
+        </div>
+      </ng-container>
+
+      <!-- Liste des teams -->
+      <ng-container *ngIf="activeTab === 'teams'">
+        <div
+          class="list-item"
+          *ngFor="let team of teams"
+          (click)="selectTeam(team)"
+          [class.selected]="selectedTeam?._id === team._id"
+        >
+          <span class="avatar">👥</span>
+          <span class="name">{{ team.name }}</span>
+          <span class="role">{{ team.members.length }} members</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Détails -->
+    <div class="details">
+      <h3>Details</h3>
+
+      <!-- Details agent -->
+      <ng-container *ngIf="selectedAgent">
+        <div class="detail-card">
+          <p><strong>Name:</strong> {{ selectedAgent.name }}</p>
+          <p><strong>Email:</strong> {{ selectedAgent.email }}</p>
+          <p><strong>Role:</strong> {{ selectedAgent.role }}</p>
+          <p><strong>Teams:</strong> {{ selectedAgent.teams?.join(', ') }}</p>
+          <button (click)="editAgent()">✏️ Edit</button>
+        </div>
+      </ng-container>
+
+      <!-- Details team -->
+      <ng-container *ngIf="selectedTeam">
+        <div class="detail-card">
+          <p><strong>Team:</strong> {{ selectedTeam.name }}</p>
+          <p><strong>Members:</strong> {{ selectedTeam.members.join(', ') }}</p>
+          <button (click)="editTeam()">✏️ Edit</button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

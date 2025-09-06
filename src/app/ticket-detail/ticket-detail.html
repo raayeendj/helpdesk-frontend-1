@@ -1,0 +1,87 @@
+<!-- src/app/ticket-detail/ticket-detail.html -->
+<div class="dashboard-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Tickets</h2>
+      <button class="new-ticket-btn" [routerLink]="['/tickets/new']">+ New Ticket</button>
+    </div>
+
+    <input type="text" placeholder="Search in all tickets…" class="search-input" />
+
+    <!-- Section: All tickets -->
+    <ul class="sidebar-section">
+      <li class="section-title">All tickets</li>
+      <li class="sidebar-item active">
+        Tickets to handle
+        <span class="badge">{{ ticketsToHandle.length }}</span>
+      </li>
+      <li class="sidebar-item">
+        My open tickets
+        <span class="badge">{{ myOpenTickets.length }}</span>
+      </li>
+    </ul>
+
+    <!-- Section: My views -->
+    <ul class="sidebar-section">
+      <li class="section-title">My views <span class="manage-link">Manage</span></li>
+      <li class="sidebar-item">
+        My tickets in last 7 days
+        <span class="badge">{{ last7DaysTickets.length }}</span>
+      </li>
+      <li class="sidebar-item">
+        Open tickets
+        <span class="badge">{{ openTickets.length }}</span>
+      </li>
+    </ul>
+
+    <!-- Section: Statuses -->
+    <ul class="sidebar-section">
+      <li class="section-title">Statuses</li>
+      <li class="sidebar-item">Open <span class="badge">{{ statusCounts.open }}</span></li>
+      <li class="sidebar-item">Pending <span class="badge">{{ statusCounts.pending }}</span></li>
+      <li class="sidebar-item">On hold <span class="badge">{{ statusCounts.onHold }}</span></li>
+      <li class="sidebar-item">Solved <span class="badge">{{ statusCounts.solved }}</span></li>
+      <li class="sidebar-item">Closed <span class="badge">{{ statusCounts.closed }}</span></li>
+      <li class="sidebar-item">Spam <span class="badge">{{ statusCounts.spam }}</span></li>
+    </ul>
+  </aside>
+
+  <!-- Partie droite -->
+  <section class="tickets-board">
+    <h2 class="board-title">Détails des Tickets</h2>
+
+    <div class="ticket-card" *ngFor="let t of tickets">
+      <!-- Header -->
+      <div class="ticket-header">
+        <div class="avatar">{{ t.requesterName.charAt(0) | uppercase }}</div>
+        <div class="ticket-title">{{ t.subject }}</div>
+      </div>
+
+      <!-- Body -->
+      <div class="ticket-body">
+        <p><strong>Requester:</strong> {{ t.requesterName }} ({{ t.requesterEmail }})</p>
+        <p><strong>Agent:</strong> {{ t.assignee || 'Unassigned' }}</p>
+        <p>
+          <strong>Status:</strong>
+          <span
+            class="status-label"
+            [ngClass]="{
+              'status-open': t.status.toLowerCase() === 'open',
+              'status-pending': t.status.toLowerCase() === 'pending',
+              'status-closed': t.status.toLowerCase() === 'closed'
+            }"
+          >
+            {{ t.status }}
+          </span>
+        </p>
+        <p><strong>Last Message:</strong> {{ t.message | slice:0:80 }}...</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="ticket-footer">
+        <small>Créé le : {{ t.createdAt | date:'mediumDate' }}</small>
+      </div>
+    </div>
+  </section>
+</div>

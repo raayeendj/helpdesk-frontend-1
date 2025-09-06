@@ -1,0 +1,347 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f9fb;
+}
+
+.login-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  width: 350px;
+  text-align: center;
+}
+
+h2       { margin-bottom: 8px; font-size: 26px; }
+p        { margin-bottom: 18px; color: #555; }
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #0050ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:disabled { background: #99b5ff; cursor: not-allowed; }
+}
+
+.forgot   { display: block; text-align: left; font-size: 13px; margin: -6px 0 14px; color: #666; }
+.register { margin-top: 14px; font-size: 14px; }
+.register a { font-weight: 600; text-decoration: none; }
+.error    { color: red; margin-top: 6px; }
+
+
+.main-header {
+  background-color: #004080;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-menu a {
+  margin: 0 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-menu a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+/* ========== CONTAINER GLOBAL ========== */
+.login-container {
+  height: calc(100vh - 80px);          /* 80 px = hauteur du header */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;             /* le header gère la couleur */
+  padding: 2rem;                       /* respiration sur mobile */
+}
+
+/* ========== CARTE FORMULAIRE ========== */
+.login-box {
+  background: rgba(255, 255, 255, 0.9); /* blanc semi‑opaque */
+  backdrop-filter: blur(4px);           /* léger flou derrière */
+  padding: 40px 48px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  /* Effet “lift” au survol */
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #202020;
+  }
+
+  p {
+    margin: 0 0 24px;
+    color: #555;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #0078ff;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: #0078ff;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #005fd4;
+    }
+
+    &:disabled {
+      background: #a8c6ff;
+      cursor: not-allowed;
+    }
+  }
+
+  .forgot,
+  .register {
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 14px;
+
+    a {
+      color: #0078ff;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  .error {
+    color: #e03131;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+}
+// =========================
+// Section : Fond de page
+// =========================
+.login-background {
+  min-height: 100vh;
+  width: 100%;
+  background: url('../../assets/voiture-sam.webp') no-repeat center center/cover; // Image de fond couvrant toute la page
+  display: flex;
+  justify-content: center; // Centre horizontalement la boîte de connexion
+  align-items: center; // Centre verticalement
+  padding-top: 80px; // Espace pour ne pas coller au header
+}
+
+// =========================
+// Section : Boîte de connexion
+// =========================
+// login.component.scss
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/assets/voiture-sam.webp') no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+}
+
+.login-box {
+  background: transparent; // Aucun fond
+  border: 1px solid #007bff; // Bordure bleue fine et visible
+  border-radius: 12px;
+  box-shadow: none; // Pas d’ombre
+  padding: 2.5rem 3rem;
+  max-width: 400px;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+
+.login-box h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-box p {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1); // Transparent input
+  color: white;
+  font-size: 0.95rem;
+}
+
+.login-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-box button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0099ff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #007acc;
+}
+
+.forgot,
+.register {
+  color: #e0e0e0;
+  font-size: 0.85rem;
+}
+
+.error {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+/* === En-tête principal === */
+// Header principal
+header {
+  background-color: #004e7c;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 60px;
+  animation: slideInLeft 1s ease-out;
+}
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 1.2px;
+  padding: 0.3rem 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  animation: pulseGlow 3s infinite;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+nav a.active {
+  background-color: white;
+  color: #004e7c;
+  font-weight: bold;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+  }
+}
+
+

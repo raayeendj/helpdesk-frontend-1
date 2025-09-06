@@ -1,0 +1,150 @@
+<div class="layout-container">
+  <!-- Mini Sidebar Noire -->
+  <nav class="mini-sidebar">
+    <ul>
+      <li>
+        <a routerLink="/tickets/detail/1">
+        <img src="assets/ticket.svg" alt="Tickets" />
+       <span class="icon-label">Tickets</span>
+       </a>
+
+      </li>
+      <li>
+      <a routerLink="/agents">
+        <img src="assets/agent.svg" alt="Agents" />
+        <span class="icon-label">Agents</span>
+      </a>
+    </li>
+    <li>
+      <li class="spacer"></li>
+      <li>
+        <a routerLink="/settings" aria-label="Settings">
+          <img src="assets/settings.svg" alt="Settings" />
+          <span class="icon-label">Settings</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/profile" aria-label="Profile">
+          <img src="assets/user.svg" alt="Profile" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenu principal -->
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Tickets</h2>
+        <button class="new-ticket-btn" [routerLink]="['/tickets/new']">+ New Ticket</button>
+      </div>
+
+      <input type="text" placeholder="Search in all tickets…" class="search-input" />
+
+     <!-- Section: All tickets -->
+      <ul class="sidebar-section">
+        <li class="section-title">All tickets</li>
+        <li class="sidebar-item active">
+          Tickets to handle
+          <span class="badge">{{ ticketsToHandle.length }}</span>
+        </li>
+        <li class="sidebar-item">
+          My open tickets
+          <span class="badge">{{ myOpenTickets.length }}</span>
+        </li>
+      </ul>
+
+      <!-- Section: My views -->
+      <ul class="sidebar-section">
+        <li class="section-title">My views <span class="manage-link">Manage</span></li>
+        <li class="sidebar-item">
+          My tickets in last 7 days
+          <span class="badge">{{ last7DaysTickets.length }}</span>
+        </li>
+        <li class="sidebar-item">
+          Open tickets
+          <span class="badge">{{ openTickets.length }}</span>
+        </li>
+      </ul>
+
+      <!-- Section: Statuses -->
+      <ul class="sidebar-section">
+        <li class="section-title">Statuses</li>
+        <li class="sidebar-item">
+          Open
+          <span class="badge">{{ statusCounts.open }}</span>
+        </li>
+        <li class="sidebar-item">
+          Pending
+          <span class="badge">{{ statusCounts.pending }}</span>
+        </li>
+        <li class="sidebar-item">
+          On hold
+          <span class="badge">{{ statusCounts.onHold }}</span>
+        </li>
+        <li class="sidebar-item">
+          Solved
+          <span class="badge">{{ statusCounts.solved }}</span>
+        </li>
+        <li class="sidebar-item">
+          Closed
+          <span class="badge">{{ statusCounts.closed }}</span>
+        </li>
+        <li class="sidebar-item">
+          Spam
+          <span class="badge">{{ statusCounts.spam }}</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="main-content">
+      <div class="content-header">
+        <h1>All tickets</h1>
+        <button class="filter-btn">+ Add filter</button>
+      </div>
+
+      <p class="ticket-count">{{ tickets.length }} tickets</p>
+
+      <table class="ticket-table" *ngIf="tickets.length > 0; else noTickets">
+        <thead>
+          <tr>
+            <th>Requester</th>
+            <th>Subject</th>
+            <th>Agent</th>
+            <th>Status</th>
+            <th>Last message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of tickets">
+            <td class="requester">
+              <div class="avatar">{{ ticket.requesterName.charAt(0) | uppercase }}</div>
+              <div class="email">{{ ticket.requesterEmail }}</div>
+            </td>
+            <td class="subject">{{ ticket.subject }}</td>
+            <td>{{ ticket.assignee || 'Unassigned' }}</td>
+            <td>
+              <span
+                class="status-label"
+                [ngClass]="{
+                  'status-open': ticket.status?.toLowerCase() === 'open',
+                  'status-closed': ticket.status?.toLowerCase() === 'closed',
+                  'status-pending': ticket.status?.toLowerCase() === 'pending'
+                }"
+              >
+                {{ ticket.status }}
+              </span>
+            </td>
+            <td>{{ ticket.message | slice:0:40 }}...</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noTickets>
+        <p>No tickets found. Create a new one!</p>
+      </ng-template>
+    </section>
+  </div>
+</div>

@@ -2,11 +2,13 @@
   "name": "helpdesk-frontend",
   "version": "0.0.0",
   "scripts": {
+    
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test,jest"
+    
   },
   "prettier": {
     "overrides": [
@@ -20,6 +22,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.1.0",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",

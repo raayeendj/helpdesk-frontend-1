@@ -1,0 +1,39 @@
+<!-- ========== HEADER SAM ========== -->
+<header>
+  <!-- Logo à gauche -->
+  <img src="assets/logo-sam.png" alt="Logo SAM" class="logo" />
+
+  <!-- Titre central -->
+  <h1 class="header-title animated-title">HelpDesk</h1>
+
+  <!-- Liens à droite -->
+  <nav>
+    <a routerLink="/login" routerLinkActive="active">Authentification</a>
+    <a routerLink="/dashboard" routerLinkActive="active">Vue globale</a>
+  </nav>
+</header>
+
+
+<!-- ================================= -->
+
+<div class="login-background">
+  <div class="login-box">
+    <h2>Connexion</h2>
+    <p>login now </p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="email" formControlName="email" placeholder="Email" />
+      <input type="password" formControlName="password" placeholder="Password" />
+
+      <a class="forgot" href="#">Mot de passe oublié ?</a>
+
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+
+      <p class="register">
+        Nouveau compte ? <a href="#">S'inscrire</a>
+      </p>
+
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+  </div>
+</div>
