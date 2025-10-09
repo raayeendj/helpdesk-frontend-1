@@ -1,75 +1,86 @@
-<div class="page-container">
-  <!-- Header avec onglets -->
-  <div class="header">
-    <div class="tabs">
-      <button [class.active]="activeTab === 'agents'" (click)="switchTab('agents')">
-        Agents ({{ agents.length }})
-      </button>
-      <button [class.active]="activeTab === 'teams'" (click)="switchTab('teams')">
-        Teams ({{ teams.length }})
-      </button>
-    </div>
-    <div class="actions">
-      <input type="text" placeholder="Search..." />
-      <button (click)="addItem()">+ Add</button>
-    </div>
-  </div>
+<div class="agents-container">
 
-  <div class="content">
-    <!-- Liste -->
-    <div class="list">
-      <!-- Liste des agents -->
-      <ng-container *ngIf="activeTab === 'agents'">
-        <div
-          class="list-item"
-          *ngFor="let agent of agents"
-          (click)="selectAgent(agent)"
-          [class.selected]="selectedAgent?._id === agent._id"
-        >
-          <span class="avatar">👤</span>
-          <span class="name">{{ agent.name }}</span>
-          <span class="role" [class.admin]="agent.role === 'Admin'">{{ agent.role }}</span>
-        </div>
-      </ng-container>
-
-      <!-- Liste des teams -->
-      <ng-container *ngIf="activeTab === 'teams'">
-        <div
-          class="list-item"
-          *ngFor="let team of teams"
-          (click)="selectTeam(team)"
-          [class.selected]="selectedTeam?._id === team._id"
-        >
-          <span class="avatar">👥</span>
-          <span class="name">{{ team.name }}</span>
-          <span class="role">{{ team.members.length }} members</span>
-        </div>
-      </ng-container>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <lucide-icon name="shield" class="icon"></lucide-icon>
+      <span>Admin Panel</span>
     </div>
 
-    <!-- Détails -->
-    <div class="details">
-      <h3>Details</h3>
+    <nav class="menu">
+      <a href="#" class="menu-item" [class.active]="viewMode === 'agents'" (click)="switchView('agents')">
+        <lucide-icon name="users"></lucide-icon>
+        Agents
+      </a>
+      <a href="#" class="menu-item" [class.active]="viewMode === 'teams'" (click)="switchView('teams')">
+        <lucide-icon name="building"></lucide-icon>
+        Teams
+      </a>
+    </nav>
+  </aside>
 
-      <!-- Details agent -->
-      <ng-container *ngIf="selectedAgent">
-        <div class="detail-card">
-          <p><strong>Name:</strong> {{ selectedAgent.name }}</p>
-          <p><strong>Email:</strong> {{ selectedAgent.email }}</p>
-          <p><strong>Role:</strong> {{ selectedAgent.role }}</p>
-          <p><strong>Teams:</strong> {{ selectedAgent.teams?.join(', ') }}</p>
-          <button (click)="editAgent()">✏️ Edit</button>
+  <!-- Main Content (divisé en deux frames verticales) -->
+  <main class="main">
+    <div class="content-frame">
+      <!-- ======= FRAME GAUCHE : Liste des agents ou équipes ======= -->
+      <div class="list-frame">
+        <div class="header">
+          <h2>{{ viewMode === 'agents' ? 'Agents' : 'Teams' }}</h2>
+          <button class="add-btn" (click)="viewMode === 'agents' ? addAgent() : addTeam()">
+            <lucide-icon name="plus"></lucide-icon>
+            Add {{ viewMode === 'agents' ? 'Agent' : 'Team' }}
+          </button>
         </div>
-      </ng-container>
 
-      <!-- Details team -->
-      <ng-container *ngIf="selectedTeam">
-        <div class="detail-card">
-          <p><strong>Team:</strong> {{ selectedTeam.name }}</p>
-          <p><strong>Members:</strong> {{ selectedTeam.members.join(', ') }}</p>
-          <button (click)="editTeam()">✏️ Edit</button>
+        <div class="agents-list">
+          <div class="card" *ngFor="let item of (viewMode === 'agents' ? agents : teams)" (click)="viewDetails(item)">
+            <div class="card-header">
+              <lucide-icon name="{{ viewMode === 'agents' ? 'user' : 'building' }}"></lucide-icon>
+              <h3>{{ item.name }}</h3>
+            </div>
+            <p *ngIf="viewMode === 'agents'">{{ item.role }}</p>
+            <p *ngIf="viewMode === 'teams'">Members: {{ item.members }}</p>
+            <span class="status" *ngIf="viewMode === 'agents'" [class.active]="item.status === 'Actif'">
+              {{ item.status }}
+            </span>
+            <span class="status" *ngIf="viewMode === 'teams'" [class.active]="true">
+              {{ item.description }}
+            </span>
+          </div>
         </div>
-      </ng-container>
+      </div>
+
+      <!-- ======= FRAME DROITE : Détails ======= -->
+      <div class="details-panel">
+        <div class="details-header">
+          <h3>Details</h3>
+          <!-- Remplacement du bouton Add par un bouton Invite -->
+          <button class="edit-btn" (click)="invite()" *ngIf="!selectedItem">
+            <lucide-icon name="send"></lucide-icon>
+            Invite
+          </button>
+
+          <!-- Bouton Edit si un élément est sélectionné -->
+          <button class="edit-btn" (click)="editItem()" *ngIf="selectedItem">
+            <lucide-icon name="pen-tool"></lucide-icon>
+          </button>
+        </div>
+
+        <div *ngIf="!selectedItem" class="placeholder">
+          <p>Invite a new {{ viewMode }} to get started.</p>
+        </div>
+
+        <div *ngIf="selectedItem" class="detail-content">
+          <div class="avatar">
+            <lucide-icon name="{{ viewMode === 'agents' ? 'user' : 'building' }}" size="40"></lucide-icon>
+          </div>
+          <h4>{{ selectedItem.name }}</h4>
+          <p *ngIf="viewMode === 'agents'"><strong>Role:</strong> {{ selectedItem.role }}</p>
+          <p *ngIf="viewMode === 'agents'"><strong>Status:</strong> <span class="status" [class.active]="selectedItem.status === 'Actif'">{{ selectedItem.status }}</span></p>
+          <p *ngIf="viewMode === 'teams'"><strong>Members:</strong> {{ selectedItem.members }}</p>
+          <p *ngIf="viewMode === 'teams'"><strong>Description:</strong> {{ selectedItem.description }}</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
 </div>

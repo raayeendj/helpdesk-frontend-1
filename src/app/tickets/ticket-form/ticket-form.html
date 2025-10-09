@@ -3,11 +3,6 @@
   <div class="header-left">
     <img src="assets/logo-sam.png" alt="Logo SAM" class="logo" />
   </div>
-  <h1 class="header-title animated-title">HelpDesk</h1>
-  <nav class="nav-menu">
-    <a routerLink="/login" routerLinkActive="active">Authentification</a>
-    <a routerLink="/dashboard" routerLinkActive="active">Vue globale</a>
-  </nav>
 </header>
 
 <div class="dashboard-layout">
@@ -47,10 +42,6 @@
 
   <main class="ticket-main">
     <div class="top-bar">
-      <a class="back-link" routerLink="/dashboard">
-        <img src="assets/arrow_back.svg" alt="Back" />
-        <span>Back</span>
-      </a>
     </div>
 
     <form class="ticket-form" (ngSubmit)="submitForm()">

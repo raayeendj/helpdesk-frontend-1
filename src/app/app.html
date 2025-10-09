@@ -1,42 +1,18 @@
-<div class="layout-container">
-  <!-- Sidebar fixe -->
-  <nav class="mini-sidebar">
-    <ul class="sidebar-top">
-      <li>
-        <a routerLink="/tickets" routerLinkActive="active" aria-label="Tickets">
-          <img src="assets/ticket.svg" alt="Tickets" />
-          <span class="icon-label">Tickets</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/agents" routerLinkActive="active" aria-label="Agents">
-          <img src="assets/agents.svg" alt="Agents" />
-          <span class="icon-label">Agents</span>
-        </a>
-      </li>
-    </ul>
+<!-- Barre de navigation -->
+<app-navbar></app-navbar>
 
-    <div class="sidebar-bottom">
-      <hr class="separator" />
-      <ul>
-        <li>
-          <a routerLink="/settings" aria-label="Settings">
-            <img src="assets/settings.svg" alt="Settings" />
-            <span class="icon-label">Settings</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/profile" aria-label="Profile">
-            <img src="assets/user.svg" alt="Profile" />
-            <span class="icon-label">Profile</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<!-- Layout principal -->
+<div class="layout" *ngIf="showSidebar(); else noSidebar">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
 
-  <!-- Zone principale -->
+  <!-- Contenu principal -->
   <main class="page-content">
     <router-outlet></router-outlet>
   </main>
 </div>
+
+<!-- Template pour les pages sans sidebar -->
+<ng-template #noSidebar>
+  <router-outlet></router-outlet>
+</ng-template>

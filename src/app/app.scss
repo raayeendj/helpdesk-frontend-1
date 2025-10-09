@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  height: calc(100vh - 60px); // 60px = hauteur de la navbar
+  background-color: #f9fafb;
+}
+
+app-sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+}
+
+.page-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}

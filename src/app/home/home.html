@@ -1,0 +1,156 @@
+<!-- home.component.html -->
+<div class="home-dashboard">
+  <!-- Header de bienvenue -->
+  <div class="welcome-section">
+    <h2>Good afternoon, {{ userName }}</h2>
+    <p>{{ currentDate }} — Remained Work</p>
+    <div class="progress-bar">
+      <span>Todos Done: {{ todoDonePercent }}%</span>
+      <div class="bar">
+        <div class="fill" [style.width]="todoDonePercent + '%'"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistiques rapides -->
+  <div class="quick-stats">
+    <div class="stat-card">
+      <h3>My Tasks</h3>
+      <div class="value">{{ myTasks }}</div>
+    </div>
+    <div class="stat-card">
+      <h3>Bugs</h3>
+      <div class="value">{{ bugs }}</div>
+    </div>
+    <div class="stat-card">
+      <h3>Stories</h3>
+      <div class="value">{{ stories }}</div>
+    </div>
+  </div>
+
+  <!-- Project Statistic -->
+  <div class="section">
+    <h3>Project Statistic</h3>
+    <div class="project-stats">
+      <div class="project-item">
+        <h4>AWS EC2</h4>
+        <div class="progress">
+          <span>Progress: 100%</span>
+          <div class="progress-bar">
+            <div class="fill" style="width: 100%;"></div>
+          </div>
+        </div>
+        <div class="metrics">
+          <span>PV: {{ pv }}</span>
+          <span>EV: {{ ev }}</span>
+          <span>AC: {{ ac }}</span>
+          <span>SV%: {{ svPercent }}</span>
+          <span>CV%: {{ cvPercent }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Projects -->
+  <div class="section">
+    <h3>Recent Projects</h3>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="tag">CMMI</span>
+        <h4>AWS EC2</h4>
+        <div class="meta">
+          <span><i class="icon-user"></i> 2 men</span>
+          <span><i class="icon-clock"></i> 0 hours</span>
+        </div>
+        <div class="stage">Ongoing stage</div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Scrum</span>
+        <h4>Project X</h4>
+        <div class="meta">
+          <span><i class="icon-user"></i> 2 men</span>
+          <span><i class="icon-clock"></i> 150 hours</span>
+        </div>
+        <div class="progress">
+          <span>Here we go 5th</span>
+          <div class="progress-bar">
+            <div class="fill" style="width: 14.4%; background: #28a745;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Sidebar Widgets -->
+  <div class="sidebar">
+    <div class="widget">
+      <h4>Dynamics</h4>
+      <ul>
+        <li><span>5/15 18:40</span> — <span class="status">login</span></li>
+        <li><span>5/15 10:51</span> — <span class="status">login</span></li>
+      </ul>
+      <button class="more-btn">MORE</button>
+    </div>
+
+    <div class="widget">
+      <h4>My Todos</h4>
+      <input type="text" placeholder="Click to Add Todo" />
+      <button class="more-btn">MORE</button>
+    </div>
+
+    <div class="widget">
+      <h4>Personal Contribution</h4>
+      <div class="contribution-grid">
+        <div class="item">
+          <span>Todos Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>UR/Epic Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>SR/Stories Created</span>
+          <div class="number">18</div>
+        </div>
+        <div class="item">
+          <span>Tasks Finished</span>
+          <div class="number">15</div>
+        </div>
+        <div class="item">
+          <span>Bugs Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Bugs Resolved</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Cases Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Risks Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Risks Resolved</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Issues Created</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Issues Resolved</span>
+          <div class="number">0</div>
+        </div>
+        <div class="item">
+          <span>Docs Created</span>
+          <div class="number">0</div>
+        </div>
+      </div>
+      <button class="more-btn">MORE</button>
+    </div>
+  </div>
+</div>

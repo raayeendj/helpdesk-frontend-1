@@ -1,0 +1,51 @@
+<!-- contact.component.html -->
+<div class="contact-container">
+  <!-- Image à gauche -->
+  <div class="image-section">
+    <img src="../../assets/SAHTY.png" alt="Contact Image" />
+  </div>
+
+  <!-- Formulaire et info à droite -->
+  <div class="form-section">
+    <h1>Contact Us</h1>
+    <hr />
+
+    <div class="form-and-info">
+      <!-- Formulaire -->
+      <div class="contact-form">
+        <div class="input-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" [(ngModel)]="contactForm.fullName" />
+        </div>
+
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" [(ngModel)]="contactForm.email" />
+        </div>
+
+        <div class="input-group">
+          <label for="message">Message</label>
+          <textarea id="message" [(ngModel)]="contactForm.message"></textarea>
+        </div>
+
+        <button class="submit-btn" (click)="submitForm()">Contact Us</button>
+      </div>
+
+      <!-- Informations de contact -->
+      <div class="contact-info">
+        <h3>Contact</h3>
+        <p>hi@fashion.com</p>
+
+        <h3>Based in</h3>
+        <p>San Francisco,<br />California</p>
+
+        <!-- Icônes réseaux sociaux -->
+        <div class="social-icons">
+          <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

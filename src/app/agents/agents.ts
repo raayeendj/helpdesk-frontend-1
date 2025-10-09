@@ -1,84 +1,69 @@
-import { Component } from '@angular/core';
+// agent.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Agent {
-  _id: string;
-  name: string;
-  email: string;
-  role: 'Admin' | 'Technician' | 'Agent' | string;
-  teams?: string[];
-}
-
-interface Team {
-  _id: string;
-  name: string;
-  members: string[];
-}
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-agents',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './agents.html',
   styleUrls: ['./agents.scss']
 })
-export class AgentsComponent {
-  // Onglet actif par défaut
-  activeTab: 'agents' | 'teams' = 'agents';
+export class AgentsComponent implements OnInit {
 
-  // Liste d'agents
-  agents: Agent[] = [
-    { _id: '1', name: 'Jean Dupont', email: 'jean.dupont@example.com', role: 'Admin', teams: ['Support', 'Sales'] },
-    { _id: '2', name: 'Claire Martin', email: 'claire.martin@example.com', role: 'Technician', teams: ['Support'] },
-    { _id: '3', name: 'Ali Ben Salah', email: 'ali.bensalah@example.com', role: 'Agent', teams: ['Maintenance'] }
+  viewMode: 'agents' | 'teams' = 'agents'; // Mode actuel
+
+  agents: any[] = [
+    { id: 1, name: 'Rayen Temimi', role: 'Agent Principal', status: 'Actif' },
+    { id: 2, name: 'Sana Ben Youssef', role: 'Agent Junior', status: 'En congé' },
+    { id: 3, name: 'Ahmed Kacem', role: 'Agent Support', status: 'Actif' },
   ];
 
-  // Liste de teams
-  teams: Team[] = [
-    { _id: 't1', name: 'Support Heroes', members: ['Jean Dupont', 'Claire Martin'] },
-    { _id: 't2', name: 'Maintenance Crew', members: ['Ali Ben Salah'] }
+  teams: any[] = [
+    { id: 1, name: 'Support Heroes', members: 5, description: 'Équipe de support technique' },
+    { id: 2, name: 'Sales Force', members: 3, description: 'Équipe commerciale' },
   ];
 
-  // Sélection
-  selectedAgent: Agent | null = null;
-  selectedTeam: Team | null = null;
+  selectedItem: any = null; // Peut être un agent ou une équipe
 
-  // Changer d'onglet
-  switchTab(tab: 'agents' | 'teams') {
-    this.activeTab = tab;
-    this.selectedAgent = null;
-    this.selectedTeam = null;
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  // ======= Ajout d'un agent ou d'une équipe =======
+  addAgent() {
+    console.log('Add agent clicked');
+    // Ici tu peux ouvrir un modal ou naviguer vers un formulaire
   }
 
-  // Sélection agent
-  selectAgent(agent: Agent) {
-    this.selectedAgent = agent;
-    this.selectedTeam = null;
+  addTeam() {
+    console.log('Add team clicked');
+    // Ici tu peux ouvrir un modal ou naviguer vers un formulaire
   }
 
-  // Sélection team
-  selectTeam(team: Team) {
-    this.selectedTeam = team;
-    this.selectedAgent = null;
+  // ======= Afficher les détails =======
+  viewDetails(item: any) {
+    this.selectedItem = item;
   }
 
-  // Ajouter (agent ou team selon onglet actif)
-  addItem() {
-    if (this.activeTab === 'agents') {
-      alert('Ajouter agent — implémenter formulaire/modal');
-    } else {
-      alert('Ajouter team — implémenter formulaire/modal');
+  // ======= Bouton "Invite" dans le panneau détails =======
+  invite() {
+    console.log('Invite clicked for', this.viewMode);
+    // Ici tu peux ouvrir un modal ou formulaire d’invitation
+  }
+
+  // ======= Bouton Edit =======
+  editItem() {
+    if (this.selectedItem) {
+      console.log('Edit:', this.selectedItem);
+      // Ouvre un modal ou navigue vers un formulaire d'édition
     }
   }
 
-  // Editer
-  editAgent() {
-    if (!this.selectedAgent) return;
-    alert(`Editer ${this.selectedAgent.name}`);
-  }
-
-  editTeam() {
-    if (!this.selectedTeam) return;
-    alert(`Editer ${this.selectedTeam.name}`);
+  // ======= Changer la vue (agents/teams) =======
+  switchView(mode: 'agents' | 'teams') {
+    this.viewMode = mode;
+    this.selectedItem = null; // Réinitialise le détail quand on change de vue
   }
 }

@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // Connexion MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/helpdesk')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/helpdeskdb')
   .then(() => {
     console.log('✅ Connecté à MongoDB');
   })

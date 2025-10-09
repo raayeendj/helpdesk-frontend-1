@@ -1,124 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 $primary-color: #1f2937;
-$sidebar-bg: #f9fafb;
 $border-color: #e5e7eb;
 $text-color: #374151;
 $muted-color: #6b7280;
-$badge-bg: #e5e7eb;
 $hover-bg: #f3f4f6;
-$active-bg: #e0f2fe;
-$new-ticket-color: #2563eb;
-$new-ticket-hover: #1d4ed8;
 
 .dashboard-wrapper {
-  display: flex;
   font-family: 'Inter', sans-serif;
   height: 100vh;
   color: $text-color;
-}
-
-// Sidebar styles
-.sidebar {
-  width: 280px;
-  background-color: $sidebar-bg;
-  border-right: 1px solid $border-color;
-  padding: 24px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 
-  .sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      color: $primary-color;
-    }
-
-    .new-ticket-btn {
-      background-color: $new-ticket-color;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color 0.2s ease;
-
-      &:hover {
-        background-color: $new-ticket-hover;
-      }
-    }
-  }
-
-  .search-input {
-    padding: 8px 12px;
-    margin-bottom: 24px;
-    border: 1px solid $border-color;
-    border-radius: 6px;
-    font-size: 14px;
-    width: 100%;
-    color: $text-color;
-  }
-
-  .sidebar-section {
-    margin-bottom: 24px;
-
-    .section-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: $muted-color;
-      margin-bottom: 8px;
-      font-weight: 500;
-
-      .manage-link {
-        float: right;
-        font-weight: 400;
-        font-size: 12px;
-        color: $new-ticket-color;
-        text-decoration: none;
-      }
-    }
-
-    .sidebar-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 8px;
-      border-radius: 6px;
-      font-size: 14px;
-      color: $text-color;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $hover-bg;
-      }
-
-      &.active {
-        background-color: $active-bg;
-        font-weight: 500;
-      }
-
-      .badge {
-        background-color: $badge-bg;
-        border-radius: 10px;
-        padding: 2px 8px;
-        font-size: 12px;
-        color: $text-color;
-      }
-    }
-  }
-}
-
-// Main content
-.main-content {
-  flex: 1;
-  padding: 32px;
+  // 🔹 Image de fond appliquée sur tout l’écran
 
   .content-header {
     display: flex;
@@ -208,130 +103,21 @@ $new-ticket-hover: #1d4ed8;
         font-weight: 500;
         display: inline-block;
         text-transform: capitalize;
-
-        &.open {
-          background-color: #fee2e2;
-          color: #b91c1c;
-        }
-
-        &.pending {
-          background-color: #fef3c7;
-          color: #92400e;
-        }
-
-        &.solved {
-          background-color: #dcfce7;
-          color: #065f46;
-        }
-
-        &.closed {
-          background-color: #e5e7eb;
-          color: #4b5563;
-        }
-      }
-    }
-  }
-
-  .pagination {
-    display: flex;
-    gap: 8px;
-
-    .page-btn {
-      background-color: white;
-      border: 1px solid $border-color;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $hover-bg;
-      }
-
-      &.active {
-        background-color: $primary-color;
-        color: white;
-        font-weight: 500;
-        border-color: $primary-color;
       }
     }
   }
 }
 
-.layout-container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Mini Sidebar noire à gauche */
-.mini-sidebar {
-  width: 60px;
-  background-color: #1e1e2f;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 0;
-}
-
-.mini-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-.mini-sidebar li a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.mini-sidebar img {
-  width: 24px;
-  height: 24px;
-  opacity: 0.85;
-  filter: brightness(0) invert(1); // rend les icônes blanches
-  transition: filter 0.3s, opacity 0.3s;
-}
-
-.mini-sidebar img:hover {
-  opacity: 1;
-  filter: brightness(1.2) invert(1);
-}
-
-.icon-label {
-  font-size: 11px;
-  margin-top: 5px;
-  color: #f0f0f0;
-}
-
-
-
-.spacer {
-  flex-grow: 1;
-}
-
-
-.status-label {
-  padding: 4px 8px;
-  border-radius: 4px;
-  color: white;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
+// Status colors
 .status-open {
-  background-color: green;
+  background-color: #dcfce7;
+  color: #065f46;
 }
-
 .status-closed {
-  background-color: red;
+  background-color: #e5e7eb;
+  color: #4b5563;
 }
-
 .status-pending {
-  background-color: orange;
+  background-color: #fef3c7;
+  color: #92400e;
 }
-
