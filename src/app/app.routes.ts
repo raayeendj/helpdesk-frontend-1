@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard';
 import { TicketFormComponent } from './tickets/ticket-form/ticket-form';
 import { LoginComponent } from './login/login';
-import { adminGuard, agentGuard, authGuard } from './auth/auth.guard';
+import { AdminGuard, AgentGuard, AuthGuard } from './auth/auth.guard';
 
 
 export const routes: Routes = [
@@ -16,16 +16,16 @@ export const routes: Routes = [
   { 
     path: 'dashboard', 
     component: DashboardComponent,
-    canActivate: [adminGuard]
+    canActivate: [AdminGuard]
   },
   { 
     path: 'agent-dashboard', 
-    loadComponent: () => import('./dashboard/agent-dashboard').then(m => m.AgentDashboardComponent),
-    canActivate: [agentGuard]
+    loadComponent: () => import('./dashboard/agent-dashboard').then(m => m.AgentDashboard),
+    canActivate: [AgentGuard]
   },
 
   // Tickets
-  { path: 'tickets/new', component: TicketFormComponent, canActivate: [authGuard] },
+  { path: 'tickets/new', component: TicketFormComponent, canActivate: [AuthGuard] },
   {
   path: 'contact',
   loadComponent: () => import('./contact/contact').then(m => m.ContactComponent),
