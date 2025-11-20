@@ -18,4 +18,13 @@ router.put('/:id', ticketController.updateTicket);
 // Supprimer un ticket
 router.delete('/:id', ticketController.deleteTicket);
 
+// Mettre à jour le statut d'un ticket
+router.patch('/:id/status', ticketController.updateTicketStatus);
+
+// Récupérer les tickets par statut
+router.get('/status/:status', ticketController.getTicketsByStatus);
+
+// Récupérer les statistiques des tickets
+router.get('/stats/summary', ticketController.getTicketStats);
+
 module.exports = router;

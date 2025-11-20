@@ -7,6 +7,7 @@ require('dotenv').config();
 const agentRoutes = require('./routes/agentRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/agents', agentRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api/auth', authRoutes);
 
 // Route de test
 app.get('/', (req, res) => {

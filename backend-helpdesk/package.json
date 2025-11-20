@@ -7,7 +7,11 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed:teams": "node scripts/seed-teams.js"
+    "seed:teams": "node scripts/seed-teams.js",
+    "seed:agent": "node scripts/seed-agent.js",
+    "seed:management": "node scripts/seed-management.js",
+    "replace:mitsubishi": "node scripts/replace-mitsubishi-teams.js",
+    "set:tickets-open": "node scripts/set-tickets-open.js"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +19,13 @@
   "type": "commonjs",
   "dependencies": {
     "@angular/router": "^16.2.12",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^8.17.0"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1"
   },
   "devDependencies": {
     "@types/angular": "^1.8.9",

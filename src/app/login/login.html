@@ -19,7 +19,21 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <input type="email" formControlName="email" placeholder="Email" />
-      <input type="password" formControlName="password" placeholder="Password" />
+      <div class="password-container">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          formControlName="password" 
+          placeholder="Password" 
+        />
+        <button 
+          type="button" 
+          class="password-toggle" 
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+        >
+          {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+        </button>
+      </div>
 
       <a class="forgot" href="#">Mot de passe oublié ?</a>
 

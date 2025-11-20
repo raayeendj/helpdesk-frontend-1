@@ -1,12 +1,13 @@
 // agent.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-agents',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './agents.html',
   styleUrls: ['./agents.scss']
 })
@@ -40,6 +41,39 @@ export class AgentsComponent implements OnInit {
   addTeam() {
     console.log('Add team clicked');
     // Ici tu peux ouvrir un modal ou naviguer vers un formulaire
+  }
+
+  // ======= Add to team (details panel) state =======
+  showAddToTeam = false;
+  selectedTeamId: number | null = null;
+
+  toggleAddToTeam() {
+    this.showAddToTeam = !this.showAddToTeam;
+    if (!this.showAddToTeam) this.selectedTeamId = null;
+  }
+
+  confirmAddToTeam() {
+    if (!this.selectedItem || !this.selectedTeamId) return;
+    const team = this.teams.find(t => t.id === this.selectedTeamId);
+    if (!team) return;
+
+    // If teams have a members array, add this agent. For demo, increment members and optionally store an array
+    team.members = (team.members || 0) + 1;
+
+    // Attach a simple teams list to the agent for UI visibility
+    if (!this.selectedItem.teams) this.selectedItem.teams = [];
+    this.selectedItem.teams.push({ id: team.id, name: team.name });
+
+    // Close the panel
+    this.showAddToTeam = false;
+    this.selectedTeamId = null;
+
+    console.log(`Added agent ${this.selectedItem.name} to team ${team.name}`);
+  }
+
+  cancelAddToTeam() {
+    this.showAddToTeam = false;
+    this.selectedTeamId = null;
   }
 
   // ======= Afficher les détails =======

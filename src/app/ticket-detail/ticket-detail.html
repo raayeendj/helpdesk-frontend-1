@@ -12,11 +12,19 @@
     <!-- Section: All tickets -->
     <ul class="sidebar-section">
       <li class="section-title">All tickets</li>
-      <li class="sidebar-item active">
+      <li
+        class="sidebar-item"
+        [class.active]="activeGroup === 'toHandle'"
+        (click)="filterByGroup('toHandle')"
+      >
         Tickets to handle
         <span class="badge">{{ ticketsToHandle.length }}</span>
       </li>
-      <li class="sidebar-item">
+      <li
+        class="sidebar-item"
+        [class.active]="activeGroup === 'myOpen'"
+        (click)="filterByGroup('myOpen')"
+      >
         My open tickets
         <span class="badge">{{ myOpenTickets.length }}</span>
       </li>
@@ -25,11 +33,19 @@
     <!-- Section: My views -->
     <ul class="sidebar-section">
       <li class="section-title">My views <span class="manage-link">Manage</span></li>
-      <li class="sidebar-item">
+      <li
+        class="sidebar-item"
+        [class.active]="activeGroup === 'last7'"
+        (click)="filterByGroup('last7')"
+      >
         My tickets in last 7 days
         <span class="badge">{{ last7DaysTickets.length }}</span>
       </li>
-      <li class="sidebar-item">
+      <li
+        class="sidebar-item"
+        [class.active]="activeGroup === 'open'"
+        (click)="filterByGroup('open')"
+      >
         Open tickets
         <span class="badge">{{ openTickets.length }}</span>
       </li>
@@ -38,12 +54,48 @@
     <!-- Section: Statuses -->
     <ul class="sidebar-section">
       <li class="section-title">Statuses</li>
-      <li class="sidebar-item">Open <span class="badge">{{ statusCounts.open }}</span></li>
-      <li class="sidebar-item">Pending <span class="badge">{{ statusCounts.pending }}</span></li>
-      <li class="sidebar-item">On hold <span class="badge">{{ statusCounts.onHold }}</span></li>
-      <li class="sidebar-item">Solved <span class="badge">{{ statusCounts.solved }}</span></li>
-      <li class="sidebar-item">Closed <span class="badge">{{ statusCounts.closed }}</span></li>
-      <li class="sidebar-item">Spam <span class="badge">{{ statusCounts.spam }}</span></li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'Open'"
+        (click)="filterByStatus('Open')"
+      >
+        Open <span class="badge">{{ statusCounts.open }}</span>
+      </li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'Pending'"
+        (click)="filterByStatus('Pending')"
+      >
+        Pending <span class="badge">{{ statusCounts.pending }}</span>
+      </li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'On Hold'"
+        (click)="filterByStatus('On Hold')"
+      >
+        On hold <span class="badge">{{ statusCounts.onHold }}</span>
+      </li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'Solved'"
+        (click)="filterByStatus('Solved')"
+      >
+        Solved <span class="badge">{{ statusCounts.solved }}</span>
+      </li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'Closed'"
+        (click)="filterByStatus('Closed')"
+      >
+        Closed <span class="badge">{{ statusCounts.closed }}</span>
+      </li>
+      <li
+        class="sidebar-item"
+        [class.active]="activeStatus === 'Spam'"
+        (click)="filterByStatus('Spam')"
+      >
+        Spam <span class="badge">{{ statusCounts.spam }}</span>
+      </li>
     </ul>
   </aside>
 
@@ -51,7 +103,7 @@
   <section class="tickets-board">
     <h2 class="board-title">Détails des Tickets</h2>
 
-    <div class="ticket-card" *ngFor="let t of tickets">
+  <div class="ticket-card" *ngFor="let t of filteredTickets">
       <!-- Header -->
       <div class="ticket-header">
         <div class="avatar">{{ t.requesterName.charAt(0) | uppercase }}</div>
@@ -69,8 +121,12 @@
             [ngClass]="{
               'status-open': t.status.toLowerCase() === 'open',
               'status-pending': t.status.toLowerCase() === 'pending',
-              'status-closed': t.status.toLowerCase() === 'closed'
+              'status-closed': t.status.toLowerCase() === 'closed',
+              'status-onhold': ['on hold','onhold','on_hold'].includes(t.status.toLowerCase())
             }"
+            (click)="filterByStatus(t.status)"
+            title="Click to filter by this status"
+            [class.clickable-status]="true"
           >
             {{ t.status }}
           </span>

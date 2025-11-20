@@ -29,7 +29,10 @@ exports.getTeams = async (_req, res) => {
 
 exports.getTeamsWithAgents = async (_req, res) => {
   try {
-    const teams = await Team.find().populate('agents').sort({ name: 1 });
+    const teams = await Team.find().populate({
+      path: 'agents',
+      select: 'name email role active'
+    }).sort({ name: 1 });
     res.json(teams);
   } catch (err) {
     console.error(err);

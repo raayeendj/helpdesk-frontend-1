@@ -77,6 +77,20 @@
           <h4>{{ selectedItem.name }}</h4>
           <p *ngIf="viewMode === 'agents'"><strong>Role:</strong> {{ selectedItem.role }}</p>
           <p *ngIf="viewMode === 'agents'"><strong>Status:</strong> <span class="status" [class.active]="selectedItem.status === 'Actif'">{{ selectedItem.status }}</span></p>
+          <!-- Add to team button (visible when viewing an agent) -->
+          <div *ngIf="viewMode === 'agents'" class="add-to-team">
+            <button class="small-btn" (click)="toggleAddToTeam()">Add to team</button>
+
+            <div *ngIf="showAddToTeam" class="add-to-team-panel">
+              <label for="teamSelect">Choose team:</label>
+              <select id="teamSelect" [(ngModel)]="selectedTeamId">
+                <option [ngValue]="null">-- select --</option>
+                <option *ngFor="let t of teams" [ngValue]="t.id">{{ t.name }}</option>
+              </select>
+              <button class="small-btn" (click)="confirmAddToTeam()" [disabled]="!selectedTeamId">Add</button>
+              <button class="small-btn ghost" (click)="cancelAddToTeam()">Cancel</button>
+            </div>
+          </div>
           <p *ngIf="viewMode === 'teams'"><strong>Members:</strong> {{ selectedItem.members }}</p>
           <p *ngIf="viewMode === 'teams'"><strong>Description:</strong> {{ selectedItem.description }}</p>
         </div>

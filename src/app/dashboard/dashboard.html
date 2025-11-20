@@ -1,55 +1,179 @@
-
-
 <div class="dashboard-wrapper">
-  
+  <!-- Statistiques des tickets -->
+  <div class="stats-section" *ngIf="ticketStats">
+    <div class="stat-card">
+      <h3>{{ ticketStats.total }}</h3>
+      <p>Total Tickets</p>
+    </div>
+    <div class="stat-card open">
+      <h3>{{ ticketStats.open }}</h3>
+      <p>Open</p>
+    </div>
+    <div class="stat-card pending">
+      <h3>{{ ticketStats.pending }}</h3>
+      <p>Pending</p>
+    </div>
+    <div class="stat-card progress">
+      <h3>{{ ticketStats.inProgress }}</h3>
+      <p>In Progress</p>
+    </div>
+    <div class="stat-card closed">
+      <h3>{{ ticketStats.closed }}</h3>
+      <p>Closed</p>
+    </div>
+  </div>
+
   <!-- Contenu principal -->
   <section class="main-content">
     <div class="content-header">
       <h1>All tickets</h1>
-      <button class="filter-btn">+ Add filter</button>
+      <div class="header-actions">
+        <button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedStatus !== 'all' || selectedPriority !== 'all' || selectedTeam !== 'all' || searchTerm">
+          Clear Filters
+        </button>
+        <button class="filter-btn">+ Add filter</button>
+      </div>
     </div>
 
-    <p class="ticket-count">{{ tickets.length }} tickets</p>
+    <!-- Barre de filtres -->
+    <div class="filters-section">
+      <div class="search-box">
+        <input 
+          type="text" 
+          placeholder="Search tickets..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          class="search-input"
+        >
+      </div>
+      
+      <div class="filter-controls">
+        <select 
+          [(ngModel)]="selectedStatus" 
+          (change)="onFilterChange()"
+          class="filter-select"
+        >
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
 
-    <table class="ticket-table" *ngIf="tickets.length > 0; else noTickets">
+        <select 
+          [(ngModel)]="selectedPriority" 
+          (change)="onFilterChange()"
+          class="filter-select"
+        >
+          <option *ngFor="let option of priorityOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+
+        <select 
+          [(ngModel)]="selectedTeam" 
+          (change)="onFilterChange()"
+          class="filter-select"
+        >
+          <option *ngFor="let option of teamOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <p class="ticket-count">{{ filteredTickets.length }} tickets ({{ tickets.length }} total)</p>
+
+    <table class="ticket-table" *ngIf="filteredTickets.length > 0; else noTickets">
       <thead>
         <tr>
           <th>Requester</th>
           <th>Subject</th>
           <th>Agent</th>
           <th>Status</th>
+          <th>Priority</th>
+          <th>Team</th>
           <th>Last message</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ticket of tickets">
+        <tr *ngFor="let ticket of filteredTickets">
           <td class="requester">
             <div class="avatar">
               {{ ticket.requesterName.charAt(0) | uppercase }}
             </div>
-            <div class="email">{{ ticket.requesterEmail }}</div>
+            <div class="requester-info">
+              <div class="name">{{ ticket.requesterName }}</div>
+              <div class="email">{{ ticket.requesterEmail }}</div>
+            </div>
           </td>
           <td class="subject">{{ ticket.subject }}</td>
           <td>{{ ticket.assignee || 'Unassigned' }}</td>
           <td>
-            <span
-              class="status-label"
-              [ngClass]="{
-                'status-open': ticket.status?.toLowerCase() === 'open',
-                'status-closed': ticket.status?.toLowerCase() === 'closed',
-                'status-pending': ticket.status?.toLowerCase() === 'pending'
-              }"
-            >
+            <span class="status-badge" [ngClass]="getStatusBadgeClass(ticket.status)">
               {{ ticket.status }}
             </span>
           </td>
-          <td>{{ ticket.message | slice: 0:40 }}...</td>
+          <td>
+            <span class="priority-badge" [ngClass]="getPriorityBadgeClass(ticket.priority)">
+              {{ ticket.priority }}
+            </span>
+          </td>
+          <td>{{ ticket.team }}</td>
+          <td class="message">{{ ticket.message | slice: 0:50 }}...</td>
+          <td class="actions">
+            <div class="status-dropdown">
+              <select 
+                [value]="ticket.status" 
+                (change)="onStatusChange(ticket._id, $event)"
+                class="status-select"
+              >
+                <option value="Open">Open</option>
+                <option value="Pending">Pending</option>
+                <option value="On Hold">On Hold</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
 
     <ng-template #noTickets>
-      <p>No tickets found. Create a new one!</p>
+      <div class="no-tickets">
+        <p>No tickets found matching your filters.</p>
+        <button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedStatus !== 'all' || selectedPriority !== 'all' || selectedTeam !== 'all' || searchTerm">
+          Clear Filters
+        </button>
+      </div>
+    </ng-template>
+
+    <!-- Section Teams -->
+    <div class="content-header teams-section">
+      <h1>All Teams</h1>
+    </div>
+
+    <p class="ticket-count">{{ teams.length }} teams</p>
+
+    <table class="ticket-table" *ngIf="teams.length > 0; else noTeams">
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>Description</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{ team.name }}</td>
+          <td>{{ team.description || 'No description' }}</td>
+          <td>{{ team.createdAt | date: 'mediumDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noTeams>
+      <p>No teams found.</p>
     </ng-template>
   </section>
 </div>

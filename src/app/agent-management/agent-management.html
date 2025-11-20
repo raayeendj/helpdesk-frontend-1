@@ -1,0 +1,229 @@
+<div class="agent-management-container">
+  <!-- Header with tabs and Add button -->
+  <div class="management-header">
+    <div class="tabs">
+      <button 
+        class="tab" 
+        [class.active]="activeTab === 'agents'"
+        (click)="switchTab('agents')"
+      >
+        Agents ({{ agents.length }})
+      </button>
+      <button 
+        class="tab" 
+        [class.active]="activeTab === 'teams'"
+        (click)="switchTab('teams')"
+      >
+        Teams ({{ teams.length }})
+      </button>
+    </div>
+    
+    <div class="add-section">
+      <button class="add-button" (click)="toggleAddDropdown()">
+        + Add
+      </button>
+      
+      <div class="dropdown" [class.show]="showAddDropdown">
+        <button class="dropdown-item" (click)="openInviteModal()">
+          Invite Agents
+        </button>
+        <button class="dropdown-item" (click)="openCreateTeamModal()">
+          Create a Team
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Left side: Table -->
+    <div class="table-section">
+      <div class="table-container">
+        <!-- Agents Table -->
+        <table *ngIf="activeTab === 'agents'" class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              *ngFor="let agent of agents" 
+              [class.selected]="selectedAgent?._id === agent._id"
+              (click)="selectAgent(agent)"
+            >
+              <td class="agent-cell">
+                <div class="agent-avatar">
+                  {{ getAgentInitials(agent.name) }}
+                </div>
+                <span class="agent-name">{{ agent.name }}</span>
+              </td>
+              <td>
+                <span class="role-badge" [class]="getRoleBadgeClass(agent.role)">
+                  {{ agent.role }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Teams Table -->
+        <table *ngIf="activeTab === 'teams'" class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Members</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              *ngFor="let team of teams" 
+              [class.selected]="selectedTeam?._id === team._id"
+              (click)="selectTeam(team)"
+            >
+              <td class="team-cell">
+                <div class="team-avatar">
+                  {{ getTeamInitials(team.name) }}
+                </div>
+                <span class="team-name">{{ team.name }}</span>
+              </td>
+              <td>
+                <span class="member-count">{{ getTeamMembers(team).length }} members</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right side: Details Panel -->
+    <div class="details-section">
+      <div class="details-panel">
+        <h3>Details</h3>
+        
+        <!-- Agent Details -->
+        <div *ngIf="selectedAgent" class="agent-details">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              {{ getAgentInitials(selectedAgent.name) }}
+            </div>
+            <div class="profile-info">
+              <h4>{{ selectedAgent.name }}</h4>
+              <span class="role-badge" [class]="getRoleBadgeClass(selectedAgent.role)">
+                {{ selectedAgent.role }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="teams-section">
+            <h5>Teams</h5>
+            <div class="team-badges">
+              <div class="team-badge" *ngFor="let team of getAgentTeams(selectedAgent)">
+                <span class="team-initials">{{ getTeamInitials(team.name) }}</span>
+                <span class="team-name">{{ team.name }}</span>
+              </div>
+            </div>
+            <button class="add-to-team-btn">+ Add to Team</button>
+          </div>
+        </div>
+
+        <!-- Team Details -->
+        <div *ngIf="selectedTeam" class="team-details">
+          <div class="team-header">
+            <h4>{{ selectedTeam.name }}</h4>
+            <p *ngIf="selectedTeam.description">{{ selectedTeam.description }}</p>
+          </div>
+          
+          <div class="members-section">
+            <h5>Members</h5>
+            <div class="member-list">
+              <div class="member-item" *ngFor="let member of getTeamMembers(selectedTeam)">
+                <div class="member-avatar">
+                  {{ getAgentInitials(member.name) }}
+                </div>
+                <span class="member-name">{{ member.name }}</span>
+                <span class="member-role">{{ member.role }}</span>
+              </div>
+            </div>
+            <button class="add-member-btn">+ Add Member</button>
+          </div>
+        </div>
+
+        <!-- No selection message -->
+        <div *ngIf="!selectedAgent && !selectedTeam" class="no-selection">
+          <p>Select an agent or team to view details</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invite Agent Modal -->
+  <div *ngIf="showInviteModal" class="modal-overlay" (click)="closeModals()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Invite Agent</h3>
+        <button class="close-btn" (click)="closeModals()">×</button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="inviteAgent()">
+          <div class="form-group">
+            <label for="agent-name">Name</label>
+            <input type="text" id="agent-name" [(ngModel)]="inviteForm.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="agent-email">Email</label>
+            <input type="email" id="agent-email" [(ngModel)]="inviteForm.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="agent-role">Role</label>
+            <select id="agent-role" [(ngModel)]="inviteForm.role" name="role">
+              <option value="Agent">Agent</option>
+              <option value="Technician">Technician</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="agent-team">Team</label>
+            <select id="agent-team" [(ngModel)]="inviteForm.teamId" name="teamId" required>
+              <option value="">Select a team</option>
+              <option *ngFor="let team of teams" [value]="team._id">
+                {{ team.name }}
+              </option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" (click)="closeModals()">Cancel</button>
+            <button type="submit" class="btn-primary">Invite Agent</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Team Modal -->
+  <div *ngIf="showCreateTeamModal" class="modal-overlay" (click)="closeModals()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Create a Team</h3>
+        <button class="close-btn" (click)="closeModals()">×</button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="createTeam()">
+          <div class="form-group">
+            <label for="team-name">Team Name</label>
+            <input type="text" id="team-name" [(ngModel)]="teamForm.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="team-description">Description</label>
+            <textarea id="team-description" [(ngModel)]="teamForm.description" name="description" rows="3"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" (click)="closeModals()">Cancel</button>
+            <button type="submit" class="btn-primary">Create Team</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

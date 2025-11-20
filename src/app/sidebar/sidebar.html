@@ -1,25 +1,34 @@
-<nav class="sidebar">
-  <ul class="sidebar-top">
-    <li>
-      <a routerLink="/dashboard" routerLinkActive="active">
-        <img src="assets/logo-sam.png" alt="Dashboard" />
-        <span>Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/tickets" routerLinkActive="active">
-        <img src="assets/ticket.svg" alt="Tickets" />
-        <span>Tickets</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/agents" routerLinkActive="active">
-        <img src="assets/agents.svg" alt="Agents" />
-        <span>Agents</span>
-      </a>
-    </li>
-  </ul>
+<nav class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Flèche toggle -->
+  <div class="toggle-arrow" (click)="toggleSidebar()">
+    <span [class.rotated]="isCollapsed">&#x25C0;</span> <!-- ◀ flèche gauche -->
+  </div>
 
+  <!-- Partie haute -->
+  <div class="sidebar-top">
+    <ul>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active">
+          <img src="assets/logo-sam.png" alt="Dashboard" />
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/tickets" routerLinkActive="active">
+          <img src="assets/ticket.svg" alt="Tickets" />
+          <span>Tickets</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/agent-management" routerLinkActive="active">
+          <img src="assets/agents.svg" alt="Agents" />
+          <span>Agents</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Partie basse -->
   <div class="sidebar-bottom">
     <ul>
       <li>

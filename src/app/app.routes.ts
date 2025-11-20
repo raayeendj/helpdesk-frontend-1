@@ -28,11 +28,18 @@ export const routes: Routes = [
       import('./ticket-detail/ticket-detail').then((m) => m.TicketDetailComponent),
   },
 
-  // Agents
+  // Agents - redirect to new management interface
   {
     path: 'agents',
+    redirectTo: '/agent-management',
+    pathMatch: 'full'
+  },
+
+  // Agent Management
+  {
+    path: 'agent-management',
     loadComponent: () =>
-      import('./agents/agents').then((m) => m.AgentsComponent),
+      import('./agent-management/agent-management').then((m) => m.AgentManagementComponent),
   },
 
   // Page 404
