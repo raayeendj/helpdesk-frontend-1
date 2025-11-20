@@ -1,0 +1,20 @@
+<div class="mailboxes-container">
+  <div class="mailboxes-sidebar">
+    <h2>Mailboxes</h2>
+    <ul class="mailbox-links">
+      <li routerLinkActive="active">
+        <a routerLink="email-forwarding">Email forwarding</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="company-name">Company name</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="default-mailbox">Default mailbox</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mailbox-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

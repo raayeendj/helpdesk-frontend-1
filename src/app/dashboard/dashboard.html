@@ -31,7 +31,7 @@
         <button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedStatus !== 'all' || selectedPriority !== 'all' || selectedTeam !== 'all' || searchTerm">
           Clear Filters
         </button>
-        <button class="filter-btn">+ Add filter</button>
+        <button class="new-ticket-btn" [routerLink]="['/tickets/new']">+ New Ticket</button>
       </div>
     </div>
 

@@ -1,0 +1,76 @@
+.reports-page { display: flex; min-height: 100vh; }
+.reports-sidebar { width: 220px; border-right: 1px solid #e5e7eb; padding: 16px; background:#fff; }
+.reports-sidebar ul { list-style: none; padding: 0; margin: 0; }
+.reports-sidebar li { margin: 8px 0; }
+.reports-content { flex: 1; padding: 24px; background:#fff; }
+
+/* copy of the ticket sidebar styles to match look */
+.sidebar {
+	width: 260px;
+	background: #fff;
+	border-right: 1px solid #dcdcdc;
+	padding: 20px;
+	overflow-y: auto;
+}
+
+.sidebar-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.sidebar-header h2 {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.sidebar-section {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.section-title {
+	font-size: 13px;
+	font-weight: bold;
+	color: #555;
+	margin: 15px 0 5px;
+	text-transform: uppercase;
+}
+
+.sidebar-item {
+	padding: 6px 8px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 6px;
+	transition: background 0.3s;
+}
+
+.sidebar-item:hover,
+.sidebar-item.active {
+	background: #f0f8ff;
+}
+
+.badge {
+	background: #007bff;
+	color: #fff;
+	font-size: 12px;
+	padding: 2px 8px;
+	border-radius: 12px;
+	margin-left: auto;
+}
+
+/* make links look identical to ticket sidebar links */
+.sidebar-item a {
+	color: inherit;
+	text-decoration: none;
+	display: block;
+	width: 100%;
+}
+
+.sidebar-item .icon {
+	margin-right: 8px;
+}

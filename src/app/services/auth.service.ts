@@ -22,6 +22,36 @@ export class AuthService {
     localStorage.setItem('role', resp.user.role);
     localStorage.setItem('email', resp.user.email);
     localStorage.setItem('userId', resp.user.id);
+    localStorage.setItem('userName', resp.user.name);
+    localStorage.setItem('userTeam', resp.user.team);
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  getUserName(): string | null {
+    return localStorage.getItem('userName');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'Admin';
+  }
+
+  isAgent(): boolean {
+    return this.getRole() === 'Agent' || this.getRole() === 'Technician';
   }
 
   logout(): void {
@@ -29,6 +59,8 @@ export class AuthService {
     localStorage.removeItem('role');
     localStorage.removeItem('email');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userTeam');
   }
 }
 

@@ -1,0 +1,41 @@
+<div class="email-notifications">
+  <div class="header">
+    <h2>Email notifications</h2>
+    <div class="team-select">
+      <label>Setup for team</label>
+      <select>
+        <option>IT (Default team)</option>
+      </select>
+    </div>
+  </div>
+
+  <section class="section">
+    <h4>Sent to Agents:</h4>
+    <label class="checkbox">
+      <input type="checkbox" [(ngModel)]="newMessages"> New messages
+      <div class="help">Let Agents know when a Requester sent a new message.</div>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" [(ngModel)]="teamAssigned"> New Team assigned
+      <div class="help">Let Agents know when their Team was assigned to take care of a ticket.</div>
+    </label>
+  </section>
+
+  <section class="section">
+    <h4>Sent to Requesters:</h4>
+    <label class="checkbox">
+      <input type="checkbox" [(ngModel)]="newTicketConfirmation"> New ticket confirmation
+      <div class="help">Let Requester know that their ticket has been created.</div>
+      <textarea [value]="confirmationMessage"></textarea>
+      <div class="param">Add parameter: <a>Ticket Short ID</a></div>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" [(ngModel)]="feedbackRequest"> Feedback request
+      <div class="help">Send a feedback request to the Requester one hour after the ticket status has been set to Solved.</div>
+      <textarea [value]="feedbackMessage"></textarea>
+      <div class="param">Add parameter: <a>Ticket Requester Name</a></div>
+    </label>
+  </section>
+</div>

@@ -1,0 +1,39 @@
+<div class="default-mailbox-page">
+  <div class="page-header">
+    <h1>Default Mailbox</h1>
+    <p class="description">Select the default mailbox for new tickets and system notifications.</p>
+  </div>
+
+  <div class="settings-form">
+    <div class="form-group">
+      <label for="defaultMailbox">Default Mailbox</label>
+      <select 
+        id="defaultMailbox"
+        [(ngModel)]="selectedMailboxId"
+        class="form-select"
+      >
+        <option value="" disabled>Select a mailbox</option>
+        <option *ngFor="let mailbox of mailboxes" [value]="mailbox.id">
+          {{ mailbox.name }} ({{ mailbox.email }})
+        </option>
+      </select>
+      <p class="form-hint">New tickets without a specific mailbox will be assigned to this mailbox.</p>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        class="btn btn-primary" 
+        (click)="saveDefaultMailbox()"
+        [disabled]="isSaving || !selectedMailboxId"
+      >
+        <span *ngIf="!isSaving">Save Changes</span>
+        <span *ngIf="isSaving">Saving...</span>
+      </button>
+    </div>
+
+    <div class="success-message" *ngIf="saveSuccess">
+      <span class="success-icon">✓</span>
+      <span>Default mailbox saved successfully!</span>
+    </div>
+  </div>
+</div>

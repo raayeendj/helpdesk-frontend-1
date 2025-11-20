@@ -1,0 +1,91 @@
+<div class="email-forwarding-page">
+  <div class="page-header">
+    <h1>Email Forwarding</h1>
+    <p class="description">Configure email forwarding rules to automatically redirect incoming emails to different addresses.</p>
+  </div>
+
+  <div class="forwarding-rules-section">
+    <div class="section-header">
+      <h2>Forwarding Rules</h2>
+      <button class="btn btn-primary" (click)="showAddForm()" *ngIf="!isAddingRule">
+        + Add Rule
+      </button>
+    </div>
+
+    <!-- Add New Rule Form -->
+    <div class="add-rule-form" *ngIf="isAddingRule">
+      <h3>Add New Forwarding Rule</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fromEmail">From Email</label>
+          <input 
+            type="email" 
+            id="fromEmail"
+            [(ngModel)]="newRule.fromEmail"
+            placeholder="support@company.com"
+            class="form-input"
+          >
+        </div>
+        <div class="form-group">
+          <label for="toEmail">Forward To</label>
+          <input 
+            type="email" 
+            id="toEmail"
+            [(ngModel)]="newRule.toEmail"
+            placeholder="team@company.com"
+            class="form-input"
+          >
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-secondary" (click)="cancelAddRule()">Cancel</button>
+        <button class="btn btn-primary" (click)="addRule()">Add Rule</button>
+      </div>
+    </div>
+
+    <!-- Rules List -->
+    <div class="rules-list" *ngIf="forwardingRules.length > 0">
+      <div class="rule-card" *ngFor="let rule of forwardingRules">
+        <div class="rule-info">
+          <div class="rule-emails">
+            <div class="email-item">
+              <span class="email-label">From:</span>
+              <span class="email-value">{{ rule.fromEmail }}</span>
+            </div>
+            <div class="arrow">→</div>
+            <div class="email-item">
+              <span class="email-label">To:</span>
+              <span class="email-value">{{ rule.toEmail }}</span>
+            </div>
+          </div>
+          <div class="rule-status">
+            <span class="status-badge" [class.active]="rule.enabled" [class.inactive]="!rule.enabled">
+              {{ rule.enabled ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+        </div>
+        <div class="rule-actions">
+          <button 
+            class="btn-toggle" 
+            [class.enabled]="rule.enabled"
+            (click)="toggleRule(rule)"
+            [title]="rule.enabled ? 'Disable' : 'Enable'"
+          >
+            {{ rule.enabled ? 'Disable' : 'Enable' }}
+          </button>
+          <button class="btn-delete" (click)="deleteRule(rule.id)" title="Delete">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="forwardingRules.length === 0 && !isAddingRule">
+      <div class="empty-icon">📧</div>
+      <h3>No Forwarding Rules</h3>
+      <p>Create your first email forwarding rule to get started.</p>
+      <button class="btn btn-primary" (click)="showAddForm()">+ Add Rule</button>
+    </div>
+  </div>
+</div>

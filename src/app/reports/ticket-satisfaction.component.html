@@ -1,0 +1,49 @@
+<div class="report-wrapper">
+  <div class="report-header">
+    <div class="filters">
+      <button class="btn">+ Add filter</button>
+      <button class="btn ghost">Last 7 days</button>
+    </div>
+    <h2>Ticket satisfaction</h2>
+  </div>
+
+  <section class="summary-cards">
+    <div class="card" *ngFor="let s of summary">
+      <div class="card-label">{{ s.label }}</div>
+      <div class="card-value">{{ s.value }}</div>
+      <div class="card-percent">{{ s.percent }}</div>
+    </div>
+  </section>
+
+  <section class="chart-placeholder">
+    <!-- simple placeholder for the bar chart -->
+    <div class="chart-bars">
+  <div class="bar blue h1"></div>
+  <div class="bar green h2"></div>
+  <div class="bar red h3"></div>
+  <div class="bar blue h4"></div>
+    </div>
+  </section>
+
+  <section class="team-table">
+    <h3>Ticket satisfaction per team</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rated okay</th>
+          <th>Rated bad</th>
+          <th>Rated great</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of teams">
+          <td>{{ t.name }}</td>
+          <td class="center">{{ t.okay }}</td>
+          <td class="center">{{ t.bad }}</td>
+          <td class="center">{{ t.great }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

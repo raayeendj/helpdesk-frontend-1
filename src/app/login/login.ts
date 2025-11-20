@@ -30,14 +30,17 @@ export class LoginComponent {
         next: (resp) => {
           this.auth.saveSession(resp);
           const role = resp.user.role;
+          
+          // Redirection selon le rôle
           if (role === 'Admin') {
             this.router.navigateByUrl('/dashboard');
+          } else if (role === 'Agent' || role === 'Technician') {
+            this.router.navigateByUrl('/agent-dashboard');
           } else {
-            this.router.navigateByUrl('/tickets/new');
+            this.router.navigateByUrl('/home');
           }
         },
         error: () => {
-          // Afficher une alerte en cas d'email/mot de passe incorrect
           this.errorMessage = 'Adresse e-mail ou mot de passe incorrect.';
         }
       });

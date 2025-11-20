@@ -1,0 +1,37 @@
+<div class="reports-page">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Reports</h2>
+    </div>
+    <ul class="sidebar-section">
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="last-7-days">Last 7 days</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="new-tickets">New tickets</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="ticket-satisfaction">Ticket satisfaction</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="first-response-time">First response time</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="resolution-time">Resolution time</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="handling-time-by-status">Handling time by status</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="solved-and-closed">Solved and closed</a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="generate-report">Generate report</a>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="reports-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

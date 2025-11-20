@@ -4,7 +4,6 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <h2>Tickets</h2>
-      <button class="new-ticket-btn" [routerLink]="['/tickets/new']">+ New Ticket</button>
     </div>
 
     <input type="text" placeholder="Search in all tickets…" class="search-input" />
@@ -50,6 +49,7 @@
         <span class="badge">{{ openTickets.length }}</span>
       </li>
     </ul>
+
 
     <!-- Section: Statuses -->
     <ul class="sidebar-section">

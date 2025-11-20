@@ -1,0 +1,166 @@
+<div class="generate-report-container">
+  <h1 class="page-title">Generate Report</h1>
+
+  <div class="report-form">
+    <!-- Report Type Selection -->
+    <div class="form-section">
+      <h2 class="section-title">Report Type</h2>
+      <div class="report-type-grid">
+        <label *ngFor="let type of reportTypes" class="report-type-card" [class.selected]="reportConfig.reportType === type.value">
+          <input 
+            type="radio" 
+            name="reportType" 
+            [value]="type.value"
+            [(ngModel)]="reportConfig.reportType"
+            class="radio-input"
+          >
+          <span class="card-content">
+            <span class="card-icon">📊</span>
+            <span class="card-label">{{ type.label }}</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Date Range -->
+    <div class="form-section">
+      <h2 class="section-title">Date Range</h2>
+      <div class="date-range-inputs">
+        <div class="input-group">
+          <label for="dateFrom">From</label>
+          <input 
+            type="date" 
+            id="dateFrom"
+            [(ngModel)]="reportConfig.dateRange.from"
+            class="date-input"
+          >
+        </div>
+        <div class="input-group">
+          <label for="dateTo">To</label>
+          <input 
+            type="date" 
+            id="dateTo"
+            [(ngModel)]="reportConfig.dateRange.to"
+            class="date-input"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="form-section">
+      <h2 class="section-title">Filters (Optional)</h2>
+      
+      <!-- Status Filter -->
+      <div class="filter-group">
+        <h3 class="filter-title">Status</h3>
+        <div class="checkbox-group">
+          <label *ngFor="let status of statusOptions" class="checkbox-label">
+            <input 
+              type="checkbox"
+              [checked]="isFilterSelected('status', status)"
+              (change)="toggleFilter('status', status)"
+              class="checkbox-input"
+            >
+            <span class="checkbox-text">{{ status }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Priority Filter -->
+      <div class="filter-group">
+        <h3 class="filter-title">Priority</h3>
+        <div class="checkbox-group">
+          <label *ngFor="let priority of priorityOptions" class="checkbox-label">
+            <input 
+              type="checkbox"
+              [checked]="isFilterSelected('priority', priority)"
+              (change)="toggleFilter('priority', priority)"
+              class="checkbox-input"
+            >
+            <span class="checkbox-text">{{ priority }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Team Filter -->
+      <div class="filter-group">
+        <h3 class="filter-title">Team</h3>
+        <div class="checkbox-group">
+          <label *ngFor="let team of teamOptions" class="checkbox-label">
+            <input 
+              type="checkbox"
+              [checked]="isFilterSelected('team', team)"
+              (change)="toggleFilter('team', team)"
+              class="checkbox-input"
+            >
+            <span class="checkbox-text">{{ team }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Assignee Filter -->
+      <div class="filter-group">
+        <h3 class="filter-title">Assignee</h3>
+        <div class="checkbox-group">
+          <label *ngFor="let assignee of assigneeOptions" class="checkbox-label">
+            <input 
+              type="checkbox"
+              [checked]="isFilterSelected('assignee', assignee)"
+              (change)="toggleFilter('assignee', assignee)"
+              class="checkbox-input"
+            >
+            <span class="checkbox-text">{{ assignee }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Format -->
+    <div class="form-section">
+      <h2 class="section-title">Export Format</h2>
+      <div class="format-options">
+        <label *ngFor="let format of formatOptions" class="format-option" [class.selected]="reportConfig.format === format.value">
+          <input 
+            type="radio" 
+            name="format" 
+            [value]="format.value"
+            [(ngModel)]="reportConfig.format"
+            class="radio-input"
+          >
+          <span class="format-label">{{ format.label }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <button 
+        class="btn btn-secondary" 
+        (click)="resetForm()"
+        [disabled]="isGenerating"
+      >
+        Reset
+      </button>
+      <button 
+        class="btn btn-primary" 
+        (click)="generateReport()"
+        [disabled]="isGenerating"
+      >
+        <span *ngIf="!isGenerating">Generate Report</span>
+        <span *ngIf="isGenerating">Generating...</span>
+      </button>
+    </div>
+
+    <!-- Download Section -->
+    <div class="download-section" *ngIf="generatedReportUrl">
+      <div class="success-message">
+        <span class="success-icon">✓</span>
+        <span>Report generated successfully!</span>
+      </div>
+      <button class="btn btn-download" (click)="downloadReport()">
+        📥 Download Report
+      </button>
+    </div>
+  </div>
+</div>

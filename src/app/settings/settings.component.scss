@@ -1,0 +1,8 @@
+.settings-page { display:flex; min-height:80vh; }
+.settings-sidebar { width:240px; border-right:1px solid #e6e6e6; padding:20px; background:#fff; }
+.settings-sidebar h3 { margin-top:0; }
+.settings-sidebar ul { list-style:none; padding:0; margin:12px 0; }
+.settings-sidebar li { margin:8px 0; }
+.settings-sidebar a { color:#333; text-decoration:none; padding:8px 10px; display:block; border-radius:6px; }
+.settings-sidebar a.active, .settings-sidebar a:hover { background:#f6f9fb; }
+.settings-content { flex:1; padding:20px; background:#fff; }

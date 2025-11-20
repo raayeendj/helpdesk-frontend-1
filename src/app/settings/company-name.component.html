@@ -1,0 +1,36 @@
+<div class="company-name-page">
+  <div class="page-header">
+    <h1>Company Name</h1>
+    <p class="description">Set your company name to be displayed in email communications and ticket responses.</p>
+  </div>
+
+  <div class="settings-form">
+    <div class="form-group">
+      <label for="companyName">Company Name</label>
+      <input 
+        type="text" 
+        id="companyName"
+        [(ngModel)]="companyName"
+        placeholder="Enter your company name"
+        class="form-input"
+      >
+      <p class="form-hint">This name will appear in email signatures and automatic responses.</p>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        class="btn btn-primary" 
+        (click)="saveCompanyName()"
+        [disabled]="isSaving || !companyName"
+      >
+        <span *ngIf="!isSaving">Save Changes</span>
+        <span *ngIf="isSaving">Saving...</span>
+      </button>
+    </div>
+
+    <div class="success-message" *ngIf="saveSuccess">
+      <span class="success-icon">✓</span>
+      <span>Company name saved successfully!</span>
+    </div>
+  </div>
+</div>

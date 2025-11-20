@@ -1,0 +1,42 @@
+<div class="profile-page">
+  <div class="profile-panel">
+    <h2>Mon profil</h2>
+
+    <div class="profile-avatar-section">
+      <div class="profile-avatar-preview">
+        <img *ngIf="avatarPreview; else initials" [src]="avatarPreview" alt="Avatar preview">
+        <ng-template #initials>
+          <div class="avatar-placeholder">U</div>
+        </ng-template>
+      </div>
+
+      <div class="avatar-actions">
+        <input id="avatarInput" title="Upload profile photo" aria-label="Upload profile photo" type="file" (change)="onFileSelected($event)" accept="image/*">
+        <button class="btn-primary" (click)="uploadAvatar()">Upload photo</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="password-section">
+      <h3>Changer le mot de passe</h3>
+      <div class="form-group">
+        <label for="currentPassword">Mot de passe actuel</label>
+        <input id="currentPassword" placeholder="Entrez votre mot de passe actuel" title="Mot de passe actuel" type="password" [(ngModel)]="currentPassword" name="currentPassword">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">Nouveau mot de passe</label>
+        <input id="newPassword" placeholder="Entrez le nouveau mot de passe" title="Nouveau mot de passe" type="password" [(ngModel)]="newPassword" name="newPassword">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirmer nouveau mot de passe</label>
+        <input id="confirmPassword" placeholder="Confirmez le nouveau mot de passe" title="Confirmer nouveau mot de passe" type="password" [(ngModel)]="confirmPassword" name="confirmPassword">
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" (click)="changePassword()">Valider</button>
+      </div>
+    </div>
+
+    <p class="message" *ngIf="message">{{ message }}</p>
+  </div>
+</div>
